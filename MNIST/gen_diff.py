@@ -57,8 +57,10 @@ model_layer_dict1, model_layer_dict2, model_layer_dict3 = init_coverage_tables(m
 
 # ==============================================================================================
 # start gen inputs
-for _ in xrange(args.seeds):
-    gen_img = np.expand_dims(random.choice(x_test), axis=0)
+random.seed(2017)
+index = random.sample(range(x_test.shape[0]), x_test.shape[0])
+for i in xrange(args.seeds):
+    gen_img = np.expand_dims(x_test[index[i]], axis=0)
     orig_img = gen_img.copy()
     # first check if input already induces differences
     label1, label2, label3 = np.argmax(model1.predict(gen_img)[0]), np.argmax(model2.predict(gen_img)[0]), np.argmax(
@@ -86,7 +88,7 @@ for _ in xrange(args.seeds):
         gen_img_deprocessed = deprocess_image(gen_img)
 
         # save the result to disk
-        imsave('./generated_inputs/' + 'already_differ_' + str(label1) + '_' + str(
+        imsave('./generated_inputs/' + 'already_differ_' + 'index' + str(index[i]) + str(label1) + '_' + str(
             label2) + '_' + str(label3) + '.png', gen_img_deprocessed)
         continue
 
@@ -160,10 +162,10 @@ for _ in xrange(args.seeds):
             orig_img_deprocessed = deprocess_image(orig_img)
 
             # save the result to disk
-            imsave('./generated_inputs/' + args.transformation + '_' + str(predictions1) + '_' + str(
+            imsave('./generated_inputs/' + args.transformation + '_' + 'index' + str(index[i]) + '_' + str(predictions1) + '_' + str(
                 predictions2) + '_' + str(predictions3) + '.png',
                    gen_img_deprocessed)
-            imsave('./generated_inputs/' + args.transformation + '_' + str(predictions1) + '_' + str(
+            imsave('./generated_inputs/' + args.transformation + '_' + 'index' + str(index[i]) + '_' + str(predictions1) + '_' + str(
                 predictions2) + '_' + str(predictions3) + '_orig.png',
                    orig_img_deprocessed)
             break
