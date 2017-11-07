@@ -29,7 +29,7 @@ parser.add_argument('threshold', help="threshold for determining neuron activate
 parser.add_argument('-t', '--target_model', help="target model that we want it predicts differently",
                     choices=[0, 1, 2], default=0, type=int)
 parser.add_argument('-sp', '--start_point', help="occlusion upper left corner coordinate", default=(0, 0), type=tuple)
-parser.add_argument('-occl_size', '--occlusion_size', help="occlusion size", default=(10, 10), type=tuple)
+parser.add_argument('-occl_size', '--occlusion_size', help="occlusion size", default=(5, 5), type=tuple)
 
 args = parser.parse_args()
 
