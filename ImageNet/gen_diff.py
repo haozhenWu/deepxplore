@@ -54,7 +54,7 @@ img_paths = image.list_pictures('./seeds', ext='JPEG')
 random.seed(2017)
 index = random.sample(range(len(img_paths)), len(img_paths))
 for i in xrange(args.seeds):
-    gen_img = preprocess_image(img_paths[index[i]]))
+    gen_img = preprocess_image(img_paths[index[i]])
     orig_img = gen_img.copy()
     # first check if input already induces differences
     pred1, pred2, pred3 = model1.predict(gen_img), model2.predict(gen_img), model3.predict(gen_img)
